@@ -31,7 +31,7 @@ jobs:
 
       - name: Install — Book I
         working-directory: invisible-interface
-        run: npm ci
+        run: npm install
 
       - name: Build — Book I
         working-directory: invisible-interface
