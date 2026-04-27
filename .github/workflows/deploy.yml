@@ -27,9 +27,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: |
-            invisible-interface/package-lock.json
-            invisible-series/Invisible Dashboard/package-lock.json
+          cache-dependency-path: invisible-interface/package-lock.json
 
       - name: Install — Book I
         working-directory: invisible-interface
@@ -41,7 +39,7 @@ jobs:
 
       - name: Install — Book II
         working-directory: "invisible-series/Invisible Dashboard"
-        run: npm ci
+        run: npm install
 
       - name: Build — Book II
         working-directory: "invisible-series/Invisible Dashboard"
