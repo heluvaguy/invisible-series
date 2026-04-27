@@ -1,0 +1,270 @@
+---
+import Base from '../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const sections = [
+  { n: 1,  title: 'The Dashboard as CYA',                         meta: '~500w' },
+  { n: 2,  title: 'Metrics That Move Nothing',                    meta: '~500w' },
+  { n: 3,  title: 'The One Question Test',                        meta: '~400w · interactive' },
+  { n: 4,  title: 'Who Is This For',                              meta: '~400w' },
+  { n: 5,  title: 'The Empty State Problem',                      meta: '~400w' },
+  { n: 6,  title: 'Against Real-Time',                            meta: '~400w · interactive' },
+  { n: 7,  title: 'The Chatbot Won\'t Save You',                  meta: '~500w' },
+  { n: 8,  title: 'The Question Behind the Question',             meta: '~400w' },
+  { n: 9,  title: 'Dashboards Are For Noticing, Not Deciding',    meta: '~500w · interactive' },
+  { n: 10, title: 'The Invisible Dashboard',                      meta: '~500w · interactive' },
+];
+---
+<Base title="The Invisible Dashboard">
+  <div class="cover">
+
+    <div class="cover-series label-caps">The Invisible Series — Book II</div>
+
+    <h1 class="cover-title">The Invisible<br/>Dashboard</h1>
+
+    <p class="cover-thesis">
+      Dashboards failed because they showed everything. Chatbot BI fails because
+      it only shows what you think to ask. Neither actually helps you decide
+      anything. The goal was never visibility — it was knowing.
+    </p>
+
+    <p class="cover-sub">
+      The best dashboard collapses into a feeling.
+    </p>
+
+    <div class="cover-divider"></div>
+
+    <div class="era-row">
+      <div class="era-item">
+        <span class="era-num">I</span>
+        <span class="era-label">The Spreadsheet</span>
+        <span class="era-note">Analysis as craft, too much work</span>
+      </div>
+      <div class="era-arrow">→</div>
+      <div class="era-item">
+        <span class="era-num">II</span>
+        <span class="era-label">The Dashboard</span>
+        <span class="era-note">Visibility mistaken for insight</span>
+      </div>
+      <div class="era-arrow">→</div>
+      <div class="era-item era-item--active">
+        <span class="era-num">III</span>
+        <span class="era-label">The BI Chatbot</span>
+        <span class="era-note">Answers mistaken for understanding</span>
+      </div>
+    </div>
+
+    <div class="cover-divider"></div>
+
+    <nav class="toc" aria-label="Table of contents">
+      <div class="toc-label label-caps">Contents</div>
+      <ol class="toc-list">
+        {sections.map(s => (
+          <li class="toc-item">
+            <a href={`${base}section/${s.n}`} class="toc-link">
+              <span class="toc-num">{String(s.n).padStart(2, '0')}</span>
+              <span class="toc-title">{s.title}</span>
+              <span class="toc-meta">{s.meta}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+
+    <a href={`${base}section/1`} class="cover-cta">Begin reading →</a>
+
+    <p class="cover-footnote">
+      Part of <em>The Invisible Series</em> — software should get out of the way.
+      So should everything else.
+      <a href="https://heluvaguy.github.io/invisible-interface/">Book I: The Invisible Interface →</a>
+    </p>
+
+  </div>
+</Base>
+
+<style>
+  .cover {
+    padding: var(--sp-16) 0 var(--sp-24);
+  }
+
+  .cover-series {
+    margin-bottom: var(--sp-4);
+  }
+
+  .cover-title {
+    font-family: var(--font-serif);
+    font-size: clamp(36px, 8vw, 52px);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--ink-900);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--sp-6);
+  }
+
+  .cover-thesis {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--ink-500);
+    max-width: 520px;
+    margin-bottom: var(--sp-3);
+  }
+
+  .cover-sub {
+    font-family: var(--font-serif);
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--ink-300);
+    margin-bottom: 0;
+  }
+
+  .cover-divider {
+    border: none;
+    border-top: var(--border-subtle);
+    margin: var(--sp-12) 0;
+  }
+
+  /* Three-era row */
+  .era-row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-4);
+    flex-wrap: wrap;
+  }
+
+  .era-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    opacity: 0.45;
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .era-item--active {
+    opacity: 1;
+  }
+
+  .era-num {
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    color: var(--ink-100);
+    letter-spacing: 0.04em;
+  }
+
+  .era-label {
+    font-family: var(--font-serif);
+    font-size: var(--text-sm);
+    color: var(--ink-700);
+    font-weight: 500;
+  }
+
+  .era-item--active .era-label {
+    color: var(--terra-600);
+  }
+
+  .era-note {
+    font-family: var(--font-sans);
+    font-size: var(--text-caption);
+    color: var(--ink-300);
+    line-height: 1.4;
+  }
+
+  .era-arrow {
+    font-family: var(--font-sans);
+    font-size: var(--text-caption);
+    color: var(--ink-100);
+    padding-top: 18px;
+    flex-shrink: 0;
+  }
+
+  /* TOC */
+  .toc-label {
+    margin-bottom: var(--sp-4);
+  }
+
+  .toc-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .toc-link {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-4);
+    padding: var(--sp-3) var(--sp-4);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: background var(--dur-fast) var(--ease-soft);
+  }
+
+  .toc-link:hover {
+    background: var(--paper-1);
+  }
+
+  .toc-num {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    color: var(--ink-100);
+    min-width: 24px;
+    flex-shrink: 0;
+    letter-spacing: 0.05em;
+  }
+
+  .toc-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-sm);
+    color: var(--ink-700);
+    flex: 1;
+    line-height: 1.4;
+    transition: color var(--dur-fast) var(--ease-soft);
+  }
+
+  .toc-link:hover .toc-title {
+    color: var(--terra-600);
+  }
+
+  .toc-meta {
+    font-family: var(--font-sans);
+    font-size: var(--text-caption);
+    color: var(--ink-300);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .cover-cta {
+    display: inline-block;
+    margin-top: var(--sp-12);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--terra-600);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color var(--dur-fast) var(--ease-soft);
+  }
+
+  .cover-cta:hover {
+    color: var(--terra-800);
+  }
+
+  .cover-footnote {
+    margin-top: var(--sp-12);
+    font-family: var(--font-sans);
+    font-size: var(--text-caption);
+    color: var(--ink-100);
+    line-height: 1.6;
+  }
+
+  .cover-footnote a {
+    color: var(--ink-300);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-soft);
+  }
+
+  .cover-footnote a:hover {
+    color: var(--terra-400);
+  }
+</style>

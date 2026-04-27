@@ -1,0 +1,83 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import PullQuote from '../../components/PullQuote.astro';
+import Annotation from '../../components/Annotation.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+<Base title="The Question Behind the Question" section={8}>
+  <SectionHeader n={8} title="The Question Behind the Question" meta="~400w" />
+
+  <div class="prose">
+
+    <p>
+      You asked "what's revenue this month?" when you needed to ask something else entirely.
+    </p>
+
+    <p>
+      This is not a failure of data access or query syntax. It is a failure of question
+      formation, and it runs through every era of BI. The spreadsheet analyst pulls
+      the wrong cut of data because they answered the presented question, not the
+      underlying concern. The dashboard shows revenue and nothing moves. The BI chatbot
+      returns the number in two seconds and leaves you no better positioned to decide
+      anything.
+    </p>
+
+    <p>
+      The presenting question is almost never the real question. "What's our churn rate?"
+      means "should we invest more in retention?" "What's the support volume this week?"
+      means "do I need to hire?" "What did campaign X return?" means "should I run it again,
+      or was it a fluke?" The surface question is a placeholder for a decision that
+      the person asking has not yet fully articulated, even to themselves.
+    </p>
+
+    <PullQuote>
+      <p>The presenting question is almost never the real question. Good BI design
+      surfaces the real question. Most tools just answer what you typed.</p>
+    </PullQuote>
+
+    <p>
+      Good analysis practice has always addressed this. A skilled analyst hears "what's
+      our churn rate?" and asks: what are you going to do differently depending on the
+      answer? If the number is high, what actions are available? If it is low, does that
+      change anything? Whose churn — which segments, which cohorts, which acquisition
+      channels? The analyst is not being obstructive. They are trying to answer the real
+      question, which requires understanding it.
+    </p>
+
+    <p>
+      Good BI design does the same thing structurally. It does not just surface the metric
+      you asked for — it surfaces the metric in the context that makes it useful.
+      Revenue this month, compared to budget, compared to last year, flagged if outside
+      the normal band. That is not more data. That is the same data with the context
+      that turns it from <a href={`${base}section/2`}>a number into a signal</a>.
+    </p>
+
+    <Annotation label="Design implication">
+      Every metric in your system has a natural set of companion metrics that make it
+      interpretable. Churn rate needs cohort breakdown, acquisition channel, and a
+      comparison baseline. Designing metrics in isolation produces numbers.
+      Designing them in relation produces understanding.
+    </Annotation>
+
+    <p>
+      The hardest version of this problem is when the real question is one the organisation
+      is not yet ready to ask. "What's revenue this month?" is sometimes a proxy for
+      "are we growing fast enough to raise our next round?" — a question that implies
+      specific benchmarks and a specific definition of "enough" that the team has not
+      agreed on. Surfacing that would be useful. It would also be uncomfortable.
+      So instead the analyst pulls the revenue number and everyone nods.
+    </p>
+
+    <p>
+      There is no fully automated fix for this. But there are design choices that push
+      in the right direction: showing context by default, building in comparison baselines,
+      annotating thresholds explicitly, and — perhaps most importantly — building
+      instruments that are designed around decisions rather than metrics. The difference
+      is subtle but total. A metric is passive. A decision instrument is opinionated.
+      It has a point of view about what matters and why, embedded in its design.
+    </p>
+
+  </div>
+</Base>

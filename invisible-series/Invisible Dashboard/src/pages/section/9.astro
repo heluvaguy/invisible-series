@@ -1,0 +1,455 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import PullQuote from '../../components/PullQuote.astro';
+import Annotation from '../../components/Annotation.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+<Base title="Dashboards Are For Noticing, Not Deciding" section={9}>
+  <SectionHeader n={9} title="Dashboards Are For Noticing, Not Deciding" meta="~500w · interactive" />
+
+  <div class="prose">
+
+    <p>
+      Here is the reframe that makes everything else in this book coherent.
+    </p>
+
+    <p>
+      Dashboards are legitimately good at one thing: ambient awareness. Wide aperture,
+      low specificity. You scan them and something catches your eye. A line that bent
+      where it usually doesn't. A number that sits outside its normal band. A proportion
+      that shifted. You did not come looking for this. You noticed it. This is the
+      genuine value of dashboards — they support the kind of peripheral, exploratory
+      attention that notices anomalies before they become problems.
+    </p>
+
+    <p>
+      This mode has a name in data science: exploratory data analysis. EDA. You are not
+      testing a hypothesis. You are scanning for things worth investigating. The
+      statistical rigour is low, the intuition is high. You poke around. Something
+      interesting appears. You follow it.
+    </p>
+
+    <PullQuote>
+      <p>Dashboards are legitimately good at one thing: ambient awareness, pattern
+      recognition, "something looks off." The mistake is deploying them for pointed
+      decisions they were never designed to answer.</p>
+    </PullQuote>
+
+    <p>
+      The mistake is deploying dashboards in decision mode — for the specific, pointed
+      work of reaching a conclusion and acting on it. This is a different cognitive task
+      entirely. It requires a clear question, a defined comparison, a threshold, and an
+      explicit response. It requires the kind of focused analysis that EDA explicitly
+      is not. And dashboards — broad, multi-metric, designed for scanning — are badly
+      suited to it.
+    </p>
+
+    <p>
+      When you use a dashboard to make a specific decision, you are using a wide-angle
+      lens to take a portrait. It can technically do it. The result will not be good.
+    </p>
+
+    <p>
+      The right tool for a decision is a focused instrument: a single chart or metric,
+      with its context, its threshold, and its implications. Often this is just one number
+      with four pieces of context. Often it lives in a document, not a dashboard. Often
+      it gets built once for one decision and never reused. That is fine. The tool should
+      match the task.
+    </p>
+
+    <Annotation label="The mode distinction">
+      EDA mode: wide aperture, many metrics, low commitment, looking for surprises.
+      Decision mode: narrow aperture, <a href={`${base}section/3`}>one question</a>, high commitment, requiring a clear answer.
+      These modes call for different instruments. A dashboard is an EDA instrument.
+      Most decision-support needs are better served by something else entirely.
+    </Annotation>
+
+    <p>
+      The interactive below shows the same dataset in both modes. EDA mode shows everything —
+      all the metrics, all the dimensions, all the time ranges. Decision mode collapses to
+      the single question: should we run the retention campaign this month?
+      Toggle between them and notice the difference in cognitive load.
+    </p>
+
+  </div>
+
+  <!-- Interactive: EDA vs Decision toggle -->
+  <div class="eda-wrapper" id="eda-wrapper">
+    <div class="eda-toggle-bar">
+      <button class="eda-mode-btn eda-mode-btn--active" id="btn-eda" data-mode="eda">
+        Exploration mode
+      </button>
+      <button class="eda-mode-btn" id="btn-decision" data-mode="decision">
+        Decision mode
+      </button>
+    </div>
+
+    <!-- EDA panel -->
+    <div class="eda-panel" id="panel-eda">
+      <div class="eda-panel-label">Exploratory — all metrics, all time ranges</div>
+      <div class="eda-grid">
+        <div class="eda-tile">
+          <div class="eda-tile-label">Monthly Revenue</div>
+          <div class="eda-tile-num">$4.2M</div>
+          <div class="eda-sparkrow">
+            <svg viewBox="0 0 80 24" xmlns="http://www.w3.org/2000/svg" class="eda-spark">
+              <polyline fill="none" stroke="var(--cold-accent)" stroke-width="1.2"
+                points="0,18 10,16 20,14 30,17 40,12 50,10 60,13 70,9 80,7"/>
+            </svg>
+            <span class="eda-delta eda-delta--up">↑ 12% MoM</span>
+          </div>
+        </div>
+        <div class="eda-tile">
+          <div class="eda-tile-label">Churn Rate</div>
+          <div class="eda-tile-num">3.4%</div>
+          <div class="eda-sparkrow">
+            <svg viewBox="0 0 80 24" xmlns="http://www.w3.org/2000/svg" class="eda-spark">
+              <polyline fill="none" stroke="var(--cold-pulse)" stroke-width="1.2"
+                points="0,8 10,10 20,9 30,11 40,13 50,14 60,15 70,16 80,18"/>
+            </svg>
+            <span class="eda-delta eda-delta--down">↑ 0.8pp MoM</span>
+          </div>
+        </div>
+        <div class="eda-tile">
+          <div class="eda-tile-label">Active Users</div>
+          <div class="eda-tile-num">48.2k</div>
+          <div class="eda-sparkrow">
+            <svg viewBox="0 0 80 24" xmlns="http://www.w3.org/2000/svg" class="eda-spark">
+              <polyline fill="none" stroke="var(--cold-accent)" stroke-width="1.2"
+                points="0,16 10,14 20,15 30,12 40,11 50,9 60,10 70,8 80,7"/>
+            </svg>
+            <span class="eda-delta eda-delta--up">↑ 5.1% MoM</span>
+          </div>
+        </div>
+        <div class="eda-tile">
+          <div class="eda-tile-label">NPS Score</div>
+          <div class="eda-tile-num">42</div>
+          <div class="eda-sparkrow">
+            <svg viewBox="0 0 80 24" xmlns="http://www.w3.org/2000/svg" class="eda-spark">
+              <polyline fill="none" stroke="var(--cold-text-3)" stroke-width="1.2"
+                points="0,12 10,11 20,13 30,12 40,14 50,13 60,12 70,14 80,13"/>
+            </svg>
+            <span class="eda-delta">→ flat</span>
+          </div>
+        </div>
+        <div class="eda-tile">
+          <div class="eda-tile-label">Support Tickets</div>
+          <div class="eda-tile-num">1,204</div>
+          <div class="eda-sparkrow">
+            <svg viewBox="0 0 80 24" xmlns="http://www.w3.org/2000/svg" class="eda-spark">
+              <polyline fill="none" stroke="var(--cold-pulse)" stroke-width="1.2"
+                points="0,14 10,13 20,15 30,18 40,16 50,19 60,20 70,18 80,21"/>
+            </svg>
+            <span class="eda-delta eda-delta--down">↑ 18% MoM</span>
+          </div>
+        </div>
+        <div class="eda-tile">
+          <div class="eda-tile-label">Avg Session Length</div>
+          <div class="eda-tile-num">4m 12s</div>
+          <div class="eda-sparkrow">
+            <svg viewBox="0 0 80 24" xmlns="http://www.w3.org/2000/svg" class="eda-spark">
+              <polyline fill="none" stroke="var(--cold-text-3)" stroke-width="1.2"
+                points="0,10 10,12 20,11 30,9 40,10 50,8 60,9 70,11 80,10"/>
+            </svg>
+            <span class="eda-delta">→ stable</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decision panel -->
+    <div class="eda-panel eda-panel--decision" id="panel-decision" style="display:none">
+      <div class="eda-panel-label">Decision — should we run the retention campaign this month?</div>
+      <div class="decision-body">
+        <div class="decision-signal">
+          <div class="decision-signal-label">Churn rate vs. campaign trigger threshold</div>
+          <div class="decision-meter">
+            <div class="decision-meter-track">
+              <div class="decision-meter-fill" style="width: 85%"></div>
+              <div class="decision-meter-threshold"></div>
+            </div>
+            <div class="decision-meter-labels">
+              <span>0%</span>
+              <span class="decision-threshold-label">Threshold: 3.0%</span>
+              <span>5%</span>
+            </div>
+          </div>
+          <div class="decision-verdict decision-verdict--yes">
+            Current churn 3.4% — above 3.0% threshold
+          </div>
+        </div>
+
+        <div class="decision-context-row">
+          <div class="decision-ctx-item">
+            <div class="decision-ctx-label">Trend</div>
+            <div class="decision-ctx-val decision-ctx-val--warn">Rising 3 months</div>
+          </div>
+          <div class="decision-ctx-item">
+            <div class="decision-ctx-label">Last campaign result</div>
+            <div class="decision-ctx-val">Reduced churn 0.6pp</div>
+          </div>
+          <div class="decision-ctx-item">
+            <div class="decision-ctx-label">Campaign cost</div>
+            <div class="decision-ctx-val">~$12k</div>
+          </div>
+        </div>
+
+        <div class="decision-answer">
+          <span class="decision-answer-badge">Recommendation</span>
+          Run the campaign. Threshold exceeded, trend unfavourable,
+          prior campaign showed positive ROI.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p>
+      The EDA view is legitimately useful — it is where you noticed the churn trend
+      in the first place. The decision view is where you act on it. They are different
+      instruments for different moments. Most dashboards conflate them.
+    </p>
+  </div>
+
+</Base>
+
+<style>
+  .eda-wrapper {
+    margin: var(--sp-8) 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--paper-3);
+    font-family: var(--font-sans);
+  }
+
+  .eda-toggle-bar {
+    display: flex;
+    background: var(--paper-1);
+    border-bottom: var(--border-subtle);
+    padding: var(--sp-2);
+    gap: var(--sp-1);
+  }
+
+  .eda-mode-btn {
+    flex: 1;
+    padding: var(--sp-2) var(--sp-3);
+    border-radius: var(--radius-sm);
+    border: none;
+    background: transparent;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--ink-300);
+    cursor: pointer;
+    transition: background var(--dur-fast), color var(--dur-fast);
+  }
+
+  .eda-mode-btn--active {
+    background: var(--paper-0);
+    color: var(--ink-900);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  .eda-panel {
+    padding: var(--sp-4) var(--sp-6);
+    background: var(--paper-0);
+  }
+
+  .eda-panel-label {
+    font-size: var(--text-caption);
+    color: var(--ink-300);
+    letter-spacing: 0.04em;
+    margin-bottom: var(--sp-4);
+  }
+
+  /* EDA grid */
+  .eda-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-3);
+  }
+
+  @media (max-width: 520px) {
+    .eda-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .eda-tile {
+    background: var(--cold-bg-0);
+    border: 1px solid var(--cold-bg-2);
+    border-radius: var(--radius-md);
+    padding: var(--sp-3);
+  }
+
+  .eda-tile-label {
+    font-size: 10px;
+    color: var(--cold-text-3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: var(--sp-1);
+  }
+
+  .eda-tile-num {
+    font-size: var(--text-h2);
+    font-weight: 600;
+    color: var(--cold-text);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--sp-2);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .eda-sparkrow {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+
+  .eda-spark {
+    width: 60px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .eda-delta {
+    font-size: 10px;
+    color: var(--cold-text-3);
+  }
+
+  .eda-delta--up { color: var(--cold-green); }
+  .eda-delta--down { color: var(--cold-pulse); }
+
+  /* Decision panel */
+  .eda-panel--decision {
+    background: var(--paper-0);
+  }
+
+  .decision-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-6);
+  }
+
+  .decision-signal-label {
+    font-size: var(--text-caption);
+    color: var(--ink-300);
+    margin-bottom: var(--sp-3);
+  }
+
+  .decision-meter {
+    margin-bottom: var(--sp-2);
+  }
+
+  .decision-meter-track {
+    height: 10px;
+    background: var(--paper-2);
+    border-radius: 5px;
+    position: relative;
+    overflow: visible;
+    margin-bottom: var(--sp-1);
+  }
+
+  .decision-meter-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--terra-100), var(--cold-pulse));
+    border-radius: 5px;
+  }
+
+  .decision-meter-threshold {
+    position: absolute;
+    top: -4px;
+    left: 60%; /* 3.0% / 5.0% = 60% */
+    width: 2px;
+    height: 18px;
+    background: var(--ink-900);
+    border-radius: 1px;
+  }
+
+  .decision-meter-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--ink-300);
+  }
+
+  .decision-threshold-label {
+    color: var(--ink-700);
+    font-weight: 500;
+  }
+
+  .decision-verdict {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    padding: var(--sp-2) var(--sp-3);
+    border-radius: var(--radius-sm);
+    margin-top: var(--sp-2);
+  }
+
+  .decision-verdict--yes {
+    background: #fff3f3;
+    color: #c0392b;
+    border: 1px solid #f5c6c6;
+  }
+
+  .decision-context-row {
+    display: flex;
+    gap: var(--sp-4);
+    flex-wrap: wrap;
+  }
+
+  .decision-ctx-item {
+    flex: 1;
+    min-width: 100px;
+  }
+
+  .decision-ctx-label {
+    font-size: 10px;
+    color: var(--ink-300);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  .decision-ctx-val {
+    font-size: var(--text-sm);
+    color: var(--ink-700);
+  }
+
+  .decision-ctx-val--warn { color: var(--cold-pulse); }
+
+  .decision-answer {
+    background: var(--terra-50);
+    border: 0.5px solid var(--terra-100);
+    border-radius: var(--radius-md);
+    padding: var(--sp-3) var(--sp-4);
+    font-size: var(--text-sm);
+    color: var(--terra-800);
+    line-height: 1.5;
+  }
+
+  .decision-answer-badge {
+    display: inline-block;
+    font-weight: 500;
+    margin-right: 0.3em;
+  }
+</style>
+
+<script>
+  const btnEda = document.getElementById('btn-eda') as HTMLButtonElement;
+  const btnDecision = document.getElementById('btn-decision') as HTMLButtonElement;
+  const panelEda = document.getElementById('panel-eda') as HTMLDivElement;
+  const panelDecision = document.getElementById('panel-decision') as HTMLDivElement;
+
+  btnEda.addEventListener('click', () => {
+    btnEda.classList.add('eda-mode-btn--active');
+    btnDecision.classList.remove('eda-mode-btn--active');
+    panelEda.style.display = 'block';
+    panelDecision.style.display = 'none';
+  });
+
+  btnDecision.addEventListener('click', () => {
+    btnDecision.classList.add('eda-mode-btn--active');
+    btnEda.classList.remove('eda-mode-btn--active');
+    panelDecision.style.display = 'block';
+    panelEda.style.display = 'none';
+  });
+</script>

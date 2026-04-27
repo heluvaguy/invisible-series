@@ -1,0 +1,382 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import PullQuote from '../../components/PullQuote.astro';
+import Annotation from '../../components/Annotation.astro';
+---
+<Base title="Against Real-Time" section={6}>
+  <SectionHeader n={6} title="Against Real-Time" meta="~400w · interactive" />
+
+  <div class="prose">
+
+    <p>
+      Live-updating data is usually theatre. The refresh animation signals vigilance.
+      The blinking number signals importance. The "last updated 3 seconds ago" timestamp
+      tells you someone cares enough to keep the pipeline warm. Almost none of this serves
+      any business decision.
+    </p>
+
+    <p>
+      Real-time is a feature that serves anxiety, not decisions. The number ticking up
+      during a product launch creates the feeling of participation — you are watching
+      something happen, you are close to it, you are in the room. But watching a number
+      tick is not the same as understanding a trend, and it is certainly not the same
+      as making a decision. You would make exactly the same decision — or non-decision —
+      if you had looked once per hour. The live feed is not adding information. It is
+      adding stimulation.
+    </p>
+
+    <PullQuote>
+      <p>Real-time is a feature that serves anxiety, not decisions. Almost no business
+      decision requires data fresher than an hour.</p>
+    </PullQuote>
+
+    <p>
+      There are genuine use cases for real-time data. Infrastructure monitoring, where
+      a five-minute lag between an incident and an alert is operationally unacceptable.
+      Financial trading, where seconds matter. Patient monitoring in clinical settings.
+      These are characterised by a specific property: the time-to-decision is shorter than
+      the data staleness that would cause a bad decision. Outside those contexts, the case
+      for real-time collapses almost entirely.
+    </p>
+
+    <p>
+      What replaces real-time is not worse data — it is calmer data. A daily summary
+      contains the same signal as a live feed, presented without the noise of moment-to-moment
+      fluctuation. It is easier to read. It is easier to act on. It does not trigger the
+      cortisol response that a pulsing red number at the edge of your vision triggers all day.
+    </p>
+
+    <Annotation label="The cost nobody measures">
+      Real-time dashboards impose a continuous attention tax. Every time a number updates
+      in your peripheral vision, your brain checks it. Multiply that by eight hours,
+      by a team of ten, and you are paying an enormous cognitive cost for data that
+      almost never changes your decisions.
+    </Annotation>
+
+    <p>
+      The interactive below places the same data side by side. On the left, a live-updating
+      counter with the full theatre of real-time BI. On the right, a calm daily summary
+      with context. Same information. Different feeling.
+    </p>
+
+  </div>
+
+  <!-- Interactive: Real-Time Theatre -->
+  <div class="rt-comparison">
+    <!-- LEFT: Live / wrong -->
+    <div class="rt-panel rt-panel--cold">
+      <div class="rt-panel-chrome">
+        <span class="rt-live-dot" id="rt-dot"></span>
+        <span>LIVE</span>
+        <span class="rt-timestamp" id="rt-timestamp">Updated just now</span>
+      </div>
+      <div class="rt-panel-body">
+        <div class="rt-label-cold">Active Sessions</div>
+        <div class="rt-number-cold" id="rt-live-number">4,812</div>
+        <div class="rt-sparkline-cold">
+          <svg id="rt-spark" viewBox="0 0 200 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <polyline id="rt-spark-line" fill="none" stroke="var(--cold-accent)" stroke-width="1.5" points=""/>
+          </svg>
+        </div>
+        <div class="rt-sub-cold">↑ 2.3% vs last hour</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Calm / right -->
+    <div class="rt-panel rt-panel--warm">
+      <div class="rt-panel-chrome-warm">Daily Summary</div>
+      <div class="rt-panel-body">
+        <div class="rt-label-warm">Active Sessions</div>
+        <div class="rt-number-warm">~4,800</div>
+        <div class="rt-context-row">
+          <span class="rt-ctx-item rt-ctx-ok">↑ 8% vs last week</span>
+          <span class="rt-ctx-item">Avg 4,650 / day (30d)</span>
+        </div>
+        <div class="rt-bar-chart">
+          <div class="rt-bar-row">
+            <span class="rt-day">Mon</span>
+            <div class="rt-bar-track"><div class="rt-bar-fill" style="width:72%"></div></div>
+            <span class="rt-bar-val">4,320</span>
+          </div>
+          <div class="rt-bar-row">
+            <span class="rt-day">Tue</span>
+            <div class="rt-bar-track"><div class="rt-bar-fill" style="width:80%"></div></div>
+            <span class="rt-bar-val">4,680</span>
+          </div>
+          <div class="rt-bar-row">
+            <span class="rt-day">Wed</span>
+            <div class="rt-bar-track"><div class="rt-bar-fill" style="width:76%"></div></div>
+            <span class="rt-bar-val">4,510</span>
+          </div>
+          <div class="rt-bar-row">
+            <span class="rt-day">Thu</span>
+            <div class="rt-bar-track"><div class="rt-bar-fill" style="width:85%"></div></div>
+            <span class="rt-bar-val">4,930</span>
+          </div>
+          <div class="rt-bar-row rt-bar-row--today">
+            <span class="rt-day">Today</span>
+            <div class="rt-bar-track"><div class="rt-bar-fill rt-bar-fill--today" style="width:82%"></div></div>
+            <span class="rt-bar-val">4,812</span>
+          </div>
+        </div>
+        <div class="rt-calm-note">Updated daily at 9am. Nothing unusual.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p>
+      The calm version contains more information. You can see the weekly trend,
+      the daily average, and whether today is unusual. The live version contains
+      more noise. Both show the same 4,800-ish number. Only one of them is doing work.
+    </p>
+  </div>
+
+</Base>
+
+<style>
+  .rt-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-4);
+    margin: var(--sp-8) 0;
+    font-family: var(--font-sans);
+  }
+
+  @media (max-width: 560px) {
+    .rt-comparison { grid-template-columns: 1fr; }
+  }
+
+  /* Cold / live panel */
+  .rt-panel--cold {
+    background: var(--cold-bg-0);
+    border: 1px solid var(--cold-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .rt-panel-chrome {
+    background: var(--cold-bg-1);
+    border-bottom: 1px solid var(--cold-border);
+    padding: var(--sp-2) var(--sp-4);
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-size: var(--text-caption);
+    color: var(--cold-text-3);
+    letter-spacing: 0.08em;
+    font-weight: 500;
+  }
+
+  .rt-live-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--cold-pulse);
+    border-radius: 50%;
+    animation: blink 1.2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  .rt-timestamp {
+    font-size: 10px;
+    color: var(--cold-text-3);
+    margin-left: auto;
+    font-weight: 400;
+  }
+
+  .rt-panel-body {
+    padding: var(--sp-4) var(--sp-4) var(--sp-6);
+  }
+
+  .rt-label-cold {
+    font-size: var(--text-caption);
+    color: var(--cold-text-3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: var(--sp-2);
+  }
+
+  .rt-number-cold {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--cold-text);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: var(--sp-3);
+    font-variant-numeric: tabular-nums;
+    transition: color var(--dur-fast);
+  }
+
+  .rt-sparkline-cold {
+    height: 40px;
+    margin-bottom: var(--sp-2);
+  }
+
+  .rt-sparkline-cold svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .rt-sub-cold {
+    font-size: var(--text-caption);
+    color: var(--cold-green);
+  }
+
+  /* Warm / calm panel */
+  .rt-panel--warm {
+    background: var(--paper-0);
+    border: 1px dashed var(--ink-100);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .rt-panel-chrome-warm {
+    background: var(--paper-1);
+    border-bottom: var(--border-subtle);
+    padding: var(--sp-2) var(--sp-4);
+    font-size: var(--text-caption);
+    color: var(--ink-300);
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .rt-label-warm {
+    font-size: var(--text-caption);
+    color: var(--ink-300);
+    letter-spacing: 0.04em;
+    margin-bottom: var(--sp-2);
+  }
+
+  .rt-number-warm {
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--ink-900);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: var(--sp-3);
+    font-family: var(--font-serif);
+  }
+
+  .rt-context-row {
+    display: flex;
+    gap: var(--sp-3);
+    margin-bottom: var(--sp-4);
+    flex-wrap: wrap;
+  }
+
+  .rt-ctx-item {
+    font-size: 11px;
+    color: var(--ink-300);
+    background: var(--paper-1);
+    border-radius: var(--radius-sm);
+    padding: 2px 6px;
+  }
+
+  .rt-ctx-ok { color: var(--terra-400); }
+
+  /* Bar chart */
+  .rt-bar-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: var(--sp-4);
+  }
+
+  .rt-bar-row {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+
+  .rt-day {
+    font-size: 10px;
+    color: var(--ink-300);
+    width: 32px;
+    flex-shrink: 0;
+  }
+
+  .rt-bar-row--today .rt-day {
+    color: var(--terra-400);
+    font-weight: 500;
+  }
+
+  .rt-bar-track {
+    flex: 1;
+    height: 8px;
+    background: var(--paper-2);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .rt-bar-fill {
+    height: 100%;
+    background: var(--paper-3);
+    border-radius: 2px;
+    transition: width var(--dur-slow) var(--ease-out);
+  }
+
+  .rt-bar-fill--today {
+    background: var(--terra-300);
+  }
+
+  .rt-bar-val {
+    font-size: 10px;
+    color: var(--ink-300);
+    min-width: 34px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rt-calm-note {
+    font-size: 11px;
+    color: var(--ink-100);
+    font-style: italic;
+  }
+</style>
+
+<script>
+  // Simulate the "live" left panel flickering with noise
+  const liveNum = document.getElementById('rt-live-number') as HTMLElement;
+  const rtDot = document.getElementById('rt-dot') as HTMLElement;
+  const rtTimestamp = document.getElementById('rt-timestamp') as HTMLElement;
+  const sparkLine = document.getElementById('rt-spark-line') as SVGPolylineElement;
+
+  let base = 4812;
+  const history: number[] = Array.from({ length: 30 }, (_, i) => {
+    return base + Math.round(Math.sin(i * 0.4) * 120 + (Math.random() - 0.5) * 80);
+  });
+
+  function sparkPoints() {
+    const w = 200, h = 40;
+    const min = Math.min(...history);
+    const max = Math.max(...history);
+    const range = max - min || 1;
+    return history.map((v, i) => {
+      const x = (i / (history.length - 1)) * w;
+      const y = h - ((v - min) / range) * (h - 4) - 2;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(' ');
+  }
+
+  function update() {
+    const delta = Math.round((Math.random() - 0.48) * 30);
+    base = Math.max(4200, Math.min(5400, base + delta));
+    history.shift();
+    history.push(base);
+    liveNum.textContent = base.toLocaleString();
+    sparkLine.setAttribute('points', sparkPoints());
+    rtTimestamp.textContent = 'Updated just now';
+  }
+
+  sparkLine.setAttribute('points', sparkPoints());
+
+  setInterval(update, 1800);
+</script>

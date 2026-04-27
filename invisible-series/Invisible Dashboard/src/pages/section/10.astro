@@ -1,0 +1,308 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import PullQuote from '../../components/PullQuote.astro';
+import Annotation from '../../components/Annotation.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+<Base title="The Invisible Dashboard" section={10}>
+  <SectionHeader n={10} title="The Invisible Dashboard" meta="~500w · interactive" />
+
+  <div class="prose">
+
+    <p>
+      Consider what it feels like to drive a well-engineered car. You are not reading
+      the instrument cluster. You are driving. The speedometer exists at the edge of
+      your vision, but you are not looking at it. You know you are doing approximately
+      ninety kilometres per hour the way you know roughly where your hands are — through
+      a kind of ambient proprioception, not conscious measurement.
+    </p>
+
+    <p>
+      The instrument cluster intrudes only when something is wrong. The temperature
+      gauge drifts toward red. The fuel light appears. The engine warning illuminates.
+      These are not subtle. They are designed to be impossible to ignore. But that is
+      the entire design contract: invisible when normal, unmissable when not.
+    </p>
+
+    <p>
+      A glass cockpit in a commercial aircraft operates the same way. In stable cruise,
+      the displays are calm — the information is present but it does not demand attention.
+      In an abnormal situation, the flight deck changes state. Warnings sound. Displays
+      change colour and priority. The information hierarchy shifts entirely to surface
+      what matters right now.
+    </p>
+
+    <PullQuote>
+      <p>The data disappears and what remains is awareness. So well tuned to one signal
+      that it becomes ambient. That's the goal. Build for a feeling, not a layout.</p>
+    </PullQuote>
+
+    <p>
+      Neither the car's instrument cluster nor the glass cockpit feels like a dashboard
+      in the BI sense. They feel like knowing. The interface has been so carefully tuned
+      to the relevant signal that the interface itself disappears. What remains is
+      not information — it is a state of the world, directly perceived.
+    </p>
+
+    <p>
+      This is the goal. Not a better layout. Not a smarter chart. Not a more flexible
+      query interface. A dashboard so well calibrated to one question — the question
+      that actually matters to the person using it — that the dashboard becomes ambient.
+      You open it and you know. You do not read it. You do not scan it. You know.
+    </p>
+
+    <p>
+      Getting there requires everything this book has argued for. <a href={`${base}section/3`}>The one question test</a>,
+      so you know which signal matters. <a href={`${base}section/2`}>The signal design work</a>, so the number has
+      a threshold and a context. <a href={`${base}section/4`}>The audience definition</a>, so the question is the right
+      one for the right person. <a href={`${base}section/5`}>The empty state design</a>, so normal is visually quiet
+      and abnormal is visually loud. It requires saying no to the second panel,
+      and the third, and the donut chart, and the table, and the filter that someone
+      requested because they like to drill down.
+    </p>
+
+    <Annotation label="The discipline">
+      The invisible dashboard is not a product of minimalism as aesthetic.
+      It is a product of discipline — of having answered the hard questions about
+      what actually matters and having the conviction to build for that and nothing else.
+    </Annotation>
+
+    <p>
+      The interactive below is an attempt to render this literally. One number.
+      One colour. One meaning. The colour shifts — warm and quiet when the business
+      metric is nominal, cooling and sharpening as it moves toward a threshold,
+      demanding attention when it crosses one. No panel chrome. No axes. No legend.
+      You just know.
+    </p>
+
+    <p>
+      It is, deliberately, almost nothing. That is the point.
+    </p>
+
+  </div>
+
+  <!-- Interactive: The Invisible Dashboard -->
+  <div class="inv-wrapper">
+    <div class="inv-chrome">The Invisible Dashboard — ambient indicator</div>
+    <div class="inv-body">
+      <div class="inv-orb-container">
+        <div class="inv-orb" id="inv-orb"></div>
+        <div class="inv-reading" id="inv-reading">—</div>
+        <div class="inv-label" id="inv-label">Monthly churn</div>
+      </div>
+      <div class="inv-state-label" id="inv-state-label">Loading…</div>
+      <div class="inv-controls">
+        <span class="inv-ctrl-label">Simulate</span>
+        <button class="inv-ctrl-btn" data-value="1.8" title="All good">All good</button>
+        <button class="inv-ctrl-btn" data-value="2.6" title="Watch closely">Elevated</button>
+        <button class="inv-ctrl-btn inv-ctrl-btn--alert" data-value="3.4" title="Act now">Alert</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p>
+      Three states. One signal. No noise. Every decision about what to include
+      in this instrument was made by removing something that did not add meaning.
+      The number is present because it anchors the feeling in something concrete.
+      The colour carries the urgency. Everything else was removed.
+    </p>
+
+    <p>
+      The goal is not to build this exact instrument. The goal is to build with
+      this level of discipline — to know which one signal matters enough to hold
+      the entire screen, and to trust that knowing it is enough.
+    </p>
+
+    <p style="margin-top: 2em; color: var(--ink-300); font-style: italic; font-size: var(--text-sm);">
+      — End of The Invisible Dashboard.
+      <a href="https://heluvaguy.github.io/invisible-interface/" style="color: var(--terra-400); text-decoration: none; margin-left: 0.4em;">
+        Book I: The Invisible Interface →
+      </a>
+    </p>
+  </div>
+
+</Base>
+
+<style>
+  .inv-wrapper {
+    margin: var(--sp-8) 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px dashed var(--ink-100);
+    font-family: var(--font-sans);
+  }
+
+  .inv-chrome {
+    background: var(--paper-1);
+    border-bottom: var(--border-subtle);
+    padding: var(--sp-2) var(--sp-4);
+    font-size: var(--text-caption);
+    color: var(--ink-300);
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .inv-body {
+    padding: var(--sp-12) var(--sp-6);
+    background: var(--paper-0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-6);
+    min-height: 240px;
+    justify-content: center;
+  }
+
+  .inv-orb-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-3);
+  }
+
+  .inv-orb {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    transition: background var(--dur-crawl) var(--ease-soft),
+                box-shadow var(--dur-crawl) var(--ease-soft);
+    background: var(--paper-2);
+    box-shadow: 0 0 0 0 transparent;
+  }
+
+  .inv-orb.state-ok {
+    background: var(--terra-100);
+    box-shadow: 0 0 32px 4px rgba(201, 149, 106, 0.18);
+  }
+
+  .inv-orb.state-warn {
+    background: #d4a055;
+    box-shadow: 0 0 40px 8px rgba(212, 160, 85, 0.25);
+  }
+
+  .inv-orb.state-alert {
+    background: var(--cold-pulse);
+    box-shadow: 0 0 48px 12px rgba(231, 76, 60, 0.28);
+  }
+
+  .inv-reading {
+    font-family: var(--font-serif);
+    font-size: 40px;
+    font-weight: 400;
+    color: var(--ink-900);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    transition: color var(--dur-crawl) var(--ease-soft);
+  }
+
+  .inv-reading.state-alert {
+    color: var(--cold-pulse);
+  }
+
+  .inv-label {
+    font-size: var(--text-caption);
+    color: var(--ink-300);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .inv-state-label {
+    font-size: var(--text-sm);
+    color: var(--ink-300);
+    font-style: italic;
+    transition: color var(--dur-crawl) var(--ease-soft);
+    text-align: center;
+  }
+
+  .inv-state-label.state-alert {
+    color: var(--cold-pulse);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  .inv-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    border-top: var(--border-subtle);
+    padding-top: var(--sp-4);
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .inv-ctrl-label {
+    font-size: var(--text-caption);
+    color: var(--ink-100);
+    letter-spacing: 0.06em;
+    margin-right: var(--sp-1);
+  }
+
+  .inv-ctrl-btn {
+    background: var(--paper-1);
+    border: 0.5px solid var(--paper-3);
+    border-radius: var(--radius-sm);
+    padding: var(--sp-1) var(--sp-3);
+    font-family: var(--font-sans);
+    font-size: var(--text-caption);
+    color: var(--ink-500);
+    cursor: pointer;
+    transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
+  }
+
+  .inv-ctrl-btn:hover {
+    background: var(--paper-2);
+    color: var(--ink-700);
+  }
+
+  .inv-ctrl-btn--alert {
+    border-color: #f5c6c6;
+    color: #c0392b;
+  }
+
+  .inv-ctrl-btn--alert:hover {
+    background: #fff0f0;
+  }
+</style>
+
+<script>
+  const orb = document.getElementById('inv-orb') as HTMLDivElement;
+  const reading = document.getElementById('inv-reading') as HTMLDivElement;
+  const stateLabel = document.getElementById('inv-state-label') as HTMLDivElement;
+
+  function setState(value: number) {
+    const display = value.toFixed(1) + '%';
+    reading.textContent = display;
+
+    orb.className = 'inv-orb';
+    reading.className = 'inv-reading';
+    stateLabel.className = 'inv-state-label';
+
+    if (value < 2.5) {
+      orb.classList.add('state-ok');
+      stateLabel.textContent = 'Within normal range — nothing requires attention';
+    } else if (value < 3.0) {
+      orb.classList.add('state-warn');
+      stateLabel.textContent = 'Elevated — worth watching, not yet a problem';
+    } else {
+      orb.classList.add('state-alert');
+      reading.classList.add('state-alert');
+      stateLabel.classList.add('state-alert');
+      stateLabel.textContent = 'Above threshold — consider running the retention campaign';
+    }
+  }
+
+  document.querySelectorAll('.inv-ctrl-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const val = parseFloat((btn as HTMLElement).dataset.value!);
+      setState(val);
+    });
+  });
+
+  // Start in nominal state
+  setState(1.8);
+</script>

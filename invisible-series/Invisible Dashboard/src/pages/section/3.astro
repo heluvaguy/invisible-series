@@ -1,0 +1,371 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import PullQuote from '../../components/PullQuote.astro';
+import Annotation from '../../components/Annotation.astro';
+---
+<Base title="The One Question Test" section={3}>
+  <SectionHeader n={3} title="The One Question Test" meta="~400w · interactive" />
+
+  <div class="prose">
+
+    <p>
+      Here is a scalpel for every unnecessary dashboard panel: if you cannot name the
+      specific decision this panel enables, remove it. Not "it helps us understand the
+      business." The actual decision, the actual person, the actual moment.
+    </p>
+
+    <p>
+      The test is brutal because most panels fail it immediately. Revenue trend?
+      Someone might point at it during a board review. That is not a decision —
+      that is narration. Active users this week? We check it every Monday. Still
+      not a decision. Checking is not deciding. Monitoring is not acting.
+    </p>
+
+    <PullQuote>
+      <p>If you can't name the specific decision this dashboard enables,
+      it shouldn't exist. Not "it helps us understand the business" —
+      the actual decision, the actual person, the actual moment.</p>
+    </PullQuote>
+
+    <p>
+      A decision has three properties. It involves a choice between at least two paths.
+      It is made by a specific person or group with the authority to act. And the data
+      in question is actually capable of influencing which path is chosen. If your panel
+      cannot satisfy all three, it is not enabling a decision. It is performing the
+      idea of data-driven culture.
+    </p>
+
+    <p>
+      The interactive below models this directly. Add the panels that live on your
+      current dashboard. For each one, name the decision. If you leave the field blank —
+      if you can't name one — the panel greys out. Watch how much of your dashboard
+      disappears.
+    </p>
+
+  </div>
+
+  <!-- Interactive: One Question Test -->
+  <div class="interactive-sample warm" id="one-question-test">
+    <div class="sample-chrome">One Question Test — Panel Builder</div>
+    <div class="sample-body">
+      <div class="oqt-layout">
+        <div class="oqt-builder">
+          <div class="oqt-input-row">
+            <input
+              type="text"
+              id="panel-name-input"
+              class="oqt-input"
+              placeholder="Panel name (e.g. Weekly Active Users)"
+              maxlength="60"
+            />
+            <input
+              type="text"
+              id="panel-decision-input"
+              class="oqt-input oqt-input--decision"
+              placeholder="Decision it enables (leave blank if none)"
+              maxlength="100"
+            />
+            <button id="add-panel-btn" class="oqt-btn">Add panel</button>
+          </div>
+          <p class="oqt-hint">Try adding your real dashboard panels. Leave the decision blank to see what greys out.</p>
+        </div>
+
+        <div class="oqt-dashboard" id="oqt-dashboard">
+          <!-- panels rendered here by JS -->
+          <div class="oqt-empty-state" id="oqt-empty">
+            <span>No panels yet — add one above</span>
+          </div>
+        </div>
+
+        <div class="oqt-summary" id="oqt-summary" style="display:none">
+          <span class="oqt-summary-live" id="oqt-live-count">0</span> of
+          <span id="oqt-total-count">0</span> panels pass the test
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <Annotation label="Note">
+      The test is not a reason to delete all your dashboards. It is a reason to be
+      honest about which ones are doing work and which ones are doing performance.
+      The ones that pass belong. The ones that fail are candidates for a different
+      question: what decision would we need to make for this data to matter?
+    </Annotation>
+  </div>
+
+</Base>
+
+<style>
+  .oqt-layout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-6);
+  }
+
+  .oqt-input-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+
+  .oqt-input {
+    background: var(--paper-0);
+    border: 0.5px solid var(--paper-3);
+    border-radius: var(--radius-sm);
+    padding: var(--sp-2) var(--sp-3);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--ink-700);
+    outline: none;
+    transition: border-color var(--dur-fast) var(--ease-soft);
+    width: 100%;
+  }
+
+  .oqt-input:focus {
+    border-color: var(--terra-300);
+  }
+
+  .oqt-input--decision {
+    border-color: var(--paper-2);
+  }
+
+  .oqt-btn {
+    background: var(--terra-400);
+    color: var(--paper-0);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: var(--sp-2) var(--sp-4);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-soft);
+    align-self: flex-start;
+  }
+
+  .oqt-btn:hover { background: var(--terra-600); }
+
+  .oqt-hint {
+    font-family: var(--font-sans);
+    font-size: var(--text-caption);
+    color: var(--ink-300);
+    margin: 0;
+  }
+
+  .oqt-dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: var(--sp-3);
+    min-height: 80px;
+  }
+
+  .oqt-empty-state {
+    grid-column: 1 / -1;
+    font-family: var(--font-sans);
+    font-size: var(--text-caption);
+    color: var(--ink-100);
+    padding: var(--sp-6) 0;
+    text-align: center;
+  }
+
+  /* --- dynamically-rendered panel elements — must use :global() --- */
+  :global(.oqt-panel) {
+    border-radius: var(--radius-md);
+    padding: var(--sp-4);
+    border: 1px solid;
+    transition: opacity var(--dur-slow) var(--ease-soft),
+                filter var(--dur-slow) var(--ease-soft),
+                border-color var(--dur-slow) var(--ease-soft);
+    position: relative;
+  }
+
+  :global(.oqt-panel--pass) {
+    background: var(--paper-1);
+    border-color: var(--terra-100);
+  }
+
+  :global(.oqt-panel--fail) {
+    background: var(--paper-0);
+    border-color: var(--paper-2);
+    opacity: 0.35;
+    filter: grayscale(1);
+  }
+
+  :global(.oqt-panel-name) {
+    font-family: var(--font-sans);
+    font-size: var(--text-caption);
+    font-weight: 500;
+    color: var(--ink-700);
+    margin-bottom: var(--sp-1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  :global(.oqt-panel--fail .oqt-panel-name) {
+    color: var(--ink-300);
+  }
+
+  :global(.oqt-panel-decision) {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    color: var(--terra-400);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  :global(.oqt-panel-nodecision) {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    color: var(--ink-100);
+    font-style: italic;
+  }
+
+  :global(.oqt-panel-remove) {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: none;
+    border: none;
+    font-size: 10px;
+    color: var(--ink-100);
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 3px;
+    line-height: 1;
+    transition: color var(--dur-fast);
+  }
+
+  :global(.oqt-panel-remove:hover) { color: var(--terra-400); }
+
+  :global(.oqt-panel-mock-chart) {
+    height: 28px;
+    margin-bottom: var(--sp-2);
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+  }
+
+  :global(.oqt-bar) {
+    flex: 1;
+    border-radius: 2px 2px 0 0;
+    background: var(--terra-100);
+  }
+
+  :global(.oqt-panel--fail .oqt-bar) {
+    background: var(--paper-2);
+  }
+
+  .oqt-summary {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--ink-300);
+    text-align: center;
+    padding-top: var(--sp-2);
+    border-top: var(--border-subtle);
+  }
+
+  .oqt-summary-live {
+    font-weight: 500;
+    color: var(--terra-600);
+    font-size: var(--text-body);
+  }
+</style>
+
+<script>
+  const nameInput = document.getElementById('panel-name-input') as HTMLInputElement;
+  const decisionInput = document.getElementById('panel-decision-input') as HTMLInputElement;
+  const addBtn = document.getElementById('add-panel-btn') as HTMLButtonElement;
+  const dashboard = document.getElementById('oqt-dashboard') as HTMLDivElement;
+  const emptyState = document.getElementById('oqt-empty') as HTMLDivElement;
+  const summaryEl = document.getElementById('oqt-summary') as HTMLDivElement;
+  const liveCount = document.getElementById('oqt-live-count') as HTMLSpanElement;
+  const totalCount = document.getElementById('oqt-total-count') as HTMLSpanElement;
+
+  const panels: { name: string; decision: string }[] = [];
+
+  // Seed with some realistic examples
+  const seeds = [
+    { name: 'Monthly Revenue', decision: 'Approve Q3 budget reforecast' },
+    { name: 'Daily Active Users', decision: '' },
+    { name: 'NPS Score', decision: '' },
+    { name: 'Support Tickets Closed', decision: '' },
+    { name: 'Churn Rate', decision: 'Trigger retention campaign threshold' },
+    { name: 'Page Views', decision: '' },
+  ];
+  seeds.forEach(s => panels.push(s));
+
+  const HEIGHTS = [14, 22, 18, 26, 20, 16, 24, 19];
+
+  function renderBar(i: number) {
+    return `<div class="oqt-bar" style="height:${HEIGHTS[i % HEIGHTS.length]}px"></div>`;
+  }
+
+  function render() {
+    const passes = panels.filter(p => p.decision.trim().length > 0).length;
+
+    // remove old panels (keep empty state node)
+    Array.from(dashboard.children).forEach(c => {
+      if (c !== emptyState) c.remove();
+    });
+
+    if (panels.length === 0) {
+      emptyState.style.display = 'block';
+      summaryEl.style.display = 'none';
+      return;
+    }
+
+    emptyState.style.display = 'none';
+    summaryEl.style.display = 'block';
+    liveCount.textContent = String(passes);
+    totalCount.textContent = String(panels.length);
+
+    panels.forEach((p, idx) => {
+      const pass = p.decision.trim().length > 0;
+      const div = document.createElement('div');
+      div.className = `oqt-panel ${pass ? 'oqt-panel--pass' : 'oqt-panel--fail'}`;
+      div.innerHTML = `
+        <button class="oqt-panel-remove" data-idx="${idx}" aria-label="Remove panel">×</button>
+        <div class="oqt-panel-mock-chart">
+          ${HEIGHTS.slice(0, 5).map((_, i) => `<div class="oqt-bar" style="height:${HEIGHTS[(idx * 3 + i) % HEIGHTS.length]}px"></div>`).join('')}
+        </div>
+        <div class="oqt-panel-name">${p.name}</div>
+        ${pass
+          ? `<div class="oqt-panel-decision">${p.decision}</div>`
+          : `<div class="oqt-panel-nodecision">no decision named</div>`
+        }
+      `;
+      dashboard.appendChild(div);
+    });
+
+    dashboard.querySelectorAll('.oqt-panel-remove').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt((e.currentTarget as HTMLElement).dataset.idx!);
+        panels.splice(idx, 1);
+        render();
+      });
+    });
+  }
+
+  addBtn.addEventListener('click', () => {
+    const name = nameInput.value.trim();
+    if (!name) return;
+    panels.push({ name, decision: decisionInput.value.trim() });
+    nameInput.value = '';
+    decisionInput.value = '';
+    nameInput.focus();
+    render();
+  });
+
+  [nameInput, decisionInput].forEach(el => {
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') addBtn.click();
+    });
+  });
+
+  render();
+</script>

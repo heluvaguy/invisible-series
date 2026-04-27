@@ -1,0 +1,95 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import PullQuote from '../../components/PullQuote.astro';
+import Annotation from '../../components/Annotation.astro';
+---
+<Base title="The Dashboard as CYA" section={1}>
+  <SectionHeader n={1} title="The Dashboard as CYA" meta="~500w" />
+
+  <div class="prose">
+
+    <p>
+      Every organisation has dashboards nobody reads. You know the ones — sixteen panels,
+      four different date filters, a donut chart in the corner that has been wrong for
+      three months and nobody has noticed. They refresh every five minutes. They live on
+      a screen in a corridor, watched only by people waiting for the lift.
+    </p>
+
+    <p>
+      These dashboards exist. They are actively maintained. Someone built them, someone
+      approved the budget, someone sends a screenshot in the all-hands every quarter.
+      And yet they do not help anyone decide anything. If they disappeared overnight,
+      the business would continue operating exactly as before.
+    </p>
+
+    <p>
+      So why do they exist?
+    </p>
+
+    <PullQuote>
+      <p>Dashboards get built for the presenter, not the reader. They exist to demonstrate
+      that someone is on top of things — not to help anyone decide anything.</p>
+    </PullQuote>
+
+    <p>
+      The honest answer is that dashboards are cover. They are a form of organisational
+      CYA — Cover Your Analysis. Nobody gets fired for building a dashboard. Building one
+      signals effort, diligence, investment in data. When something goes wrong, a dashboard
+      is evidence that you were watching. It doesn't matter that you weren't watching the
+      right thing, or that the thing you were watching didn't have an obvious threshold,
+      or that the threshold wouldn't have triggered in time anyway. The dashboard was there.
+      You were on it.
+    </p>
+
+    <p>
+      This is the original sin of dashboard culture: the dashboard was designed for the
+      person being held accountable, not the person trying to make a decision. These are
+      rarely the same person. The analyst builds for the VP who commissioned it. The VP
+      shares it with the board. The board nods. Nothing changes. The dashboard gets
+      a second tab.
+    </p>
+
+    <p>
+      There is a related pathology, which is the dashboard as political object. When teams
+      fight over which metrics belong on the shared screen, what they are really fighting
+      over is visibility — whose work shows up, whose numbers are foregrounded, whose
+      domain looks important. Data governance meetings that run three hours and accomplish
+      nothing are often really budget conversations wearing data clothing. The dashboard
+      becomes a proxy for org chart disputes that nobody wants to have directly.
+    </p>
+
+    <Annotation label="Pattern">
+      If you cannot name the last decision your dashboard enabled — a real decision,
+      made by a specific person, that changed an action — your dashboard is probably
+      performing oversight rather than enabling it.
+    </Annotation>
+
+    <p>
+      None of this is dishonest in a cynical sense. Most dashboard builders genuinely
+      believe they are providing value. They have learned to equate visibility with
+      understanding, and understanding with control. The dashboard proves something is
+      being watched. Surely that is better than nothing.
+    </p>
+
+    <p>
+      It is not better than nothing. It is often worse. A watched metric that nobody acts
+      on creates the illusion of oversight while providing none of its substance. It uses
+      up attention that could be spent on the actual question. Worse, it establishes
+      a social norm — this is how we do data here — that makes the actual question
+      harder to ask.
+    </p>
+
+    <p>
+      The fix is not a better dashboard. The fix is to ask, before building anything:
+      who makes a decision with this, and what decision do they make? If you cannot answer
+      that question in one sentence, you do not yet have a brief. You have a request for
+      a political object dressed up in metric clothing.
+    </p>
+
+    <p>
+      Stop building those.
+    </p>
+
+  </div>
+</Base>

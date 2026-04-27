@@ -1,0 +1,98 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import PullQuote from '../../components/PullQuote.astro';
+import Annotation from '../../components/Annotation.astro';
+---
+<Base title="The Chatbot Won't Save You" section={7}>
+  <SectionHeader n={7} title="The Chatbot Won't Save You" meta="~500w" />
+
+  <div class="prose">
+
+    <p>
+      The story goes like this: dashboards are hard to use because you need to know
+      where to look. Natural language BI solves this. Ask any question in plain English,
+      get an instant answer. No SQL, no training required. Data democratised.
+    </p>
+
+    <p>
+      The story is wrong, and it is worth being precise about why.
+    </p>
+
+    <p>
+      Natural language BI does lower the technical barrier to querying data. This is real.
+      A product manager who could not write a SQL join can now ask "what's our weekly
+      retention by acquisition channel" and get a table. That used to require an analyst.
+      This is genuinely useful for a narrow class of queries from a specific kind of user.
+    </p>
+
+    <p>
+      But the premise of the democratisation argument is that the barrier to insight was
+      technical. That if only non-technical people could query data directly, they would
+      ask the right questions and make better decisions. This was never true.
+      The barrier to insight is not syntax. It is knowing what to ask.
+    </p>
+
+    <PullQuote>
+      <p>Democratising bad analysis isn't progress. The query shapes the insight —
+      and most people don't know what to query.</p>
+    </PullQuote>
+
+    <p>
+      Knowing what to ask requires knowing what question is actually worth answering.
+      It requires understanding the data model well enough to know which questions are
+      answerable and which are misleading traps. It requires knowing that "conversion rate"
+      can be calculated seventeen different ways and that the one the chatbot picks
+      might not be the one you meant. It requires knowing when an answer is surprising
+      because something real changed and when it is surprising because the query was
+      subtly wrong.
+    </p>
+
+    <p>
+      None of these requirements go away because the interface is conversational.
+      If anything, the natural language interface makes them worse, because it creates
+      the impression that the answer is authoritative. A SQL query surfaces its own
+      assumptions — you can read it, scrutinise it, ask whether the join is right.
+      A plain-English answer from a BI chatbot has no such affordance. It just sounds
+      confident.
+    </p>
+
+    <Annotation label="The compounding problem">
+      Bad queries compound. A non-technical user who gets an answer they don't understand
+      will not scrutinise the underlying query. They will either trust it or not ask again.
+      Both outcomes are worse than having an analyst involved. The analyst at least knows
+      when something is off.
+    </Annotation>
+
+    <p>
+      There is also the query shapes the insight problem. The questions people think to ask
+      are constrained by their mental model of the business. If you believe that acquisition
+      cost is the most important lever, you will ask questions about acquisition cost.
+      You will not ask about the downstream quality of the users you acquire, because that
+      is not the shape of the question that occurs to you. The chatbot will dutifully answer
+      the question you asked and say nothing about the question you did not ask.
+    </p>
+
+    <p>
+      This was always true of dashboards too — you only see what you built panels for.
+      But dashboards at least force some upfront deliberation about which questions matter.
+      The chatbot's infinite query flexibility can actually be worse: it allows you to
+      pursue whatever question surfaces in the moment, which is often the wrong one.
+    </p>
+
+    <p>
+      The right use of natural language BI is narrow. It is useful for ad-hoc exploration
+      by people who already understand the data and need a faster interface to it.
+      It is useful for lowering the friction on specific known-useful queries. It is not
+      useful as a substitute for thinking carefully about which questions your organisation
+      actually needs to answer.
+    </p>
+
+    <p>
+      The root problem, as in every era, is the same: most organisations do not know
+      what question they are actually trying to answer. A better interface does not
+      fix that. It just makes it faster to ask the wrong question.
+    </p>
+
+  </div>
+</Base>

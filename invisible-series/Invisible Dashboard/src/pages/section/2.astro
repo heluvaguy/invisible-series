@@ -1,0 +1,91 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import PullQuote from '../../components/PullQuote.astro';
+import Annotation from '../../components/Annotation.astro';
+---
+<Base title="Metrics That Move Nothing" section={2}>
+  <SectionHeader n={2} title="Metrics That Move Nothing" meta="~500w" />
+
+  <div class="prose">
+
+    <p>
+      There is a difference between a number and a signal. A number tells you a value.
+      A signal tells you whether to act. Most dashboards are entirely full of numbers.
+      Almost none of them contain signals.
+    </p>
+
+    <p>
+      Revenue this month: $4.2M. Is that good? Compared to what? The budget? Last year?
+      Last month, seasonally adjusted? Is the number trending in the right direction?
+      Is the direction of the trend accelerating or slowing? Does it matter? Should you
+      do anything about it right now, or wait? The number tells you none of this.
+      It is just a value, suspended in a frame, wearing the aesthetic of insight.
+    </p>
+
+    <PullQuote>
+      <p>A number tells you a value. A signal tells you whether to act.
+      Most dashboards are full of numbers with no signals.</p>
+    </PullQuote>
+
+    <p>
+      This is the metric design problem nobody talks about. We obsess over data freshness,
+      query performance, visualisation choice. We hold long arguments about whether a bar
+      chart or a line chart better represents the data. We debate whether to use absolute
+      values or percentage changes. And then we display the result with no context,
+      no threshold, no indication of whether this particular value on this particular day
+      should cause anyone to do anything at all.
+    </p>
+
+    <p>
+      Vanity metrics are the most common offender. Pageviews. Follower counts. App
+      downloads. Total registered users. These numbers go up and to the right, reliably,
+      and the people on whose dashboards they live feel a quiet satisfaction each morning
+      when they check. But none of these numbers are close enough to a decision to be
+      useful. They tell you something happened. They do not tell you whether the thing
+      that happened matters or what you should do differently because of it.
+    </p>
+
+    <p>
+      Activity metrics are the subtler version of the same problem. Tickets closed.
+      Emails sent. Support conversations resolved. These feel operational — they feel
+      like the kinds of things a well-run team should track. And perhaps they should
+      be tracked, internally, by the teams responsible for them. But they have no place
+      on a leadership dashboard unless there is a specific decision attached. "How many
+      tickets did we close?" is not a decision. "Should we hire another support engineer
+      before Q3?" — that is a decision. The ticket volume is one input into it. It belongs
+      in that context, or it belongs nowhere.
+    </p>
+
+    <Annotation label="The signal test">
+      For any metric on your dashboard: what value would cause you to do something
+      differently? If you cannot answer, the metric is not a signal. It is wallpaper.
+    </Annotation>
+
+    <p>
+      The real problem is that collecting metrics is easy and designing signals is hard.
+      A signal requires you to know what threshold matters, which means you need to have
+      thought clearly about what you are trying to do. It requires you to have committed
+      to a response — if this number drops below X, we will do Y. That commitment is
+      uncomfortable because it forces accountability in advance. So instead, organisations
+      collect numbers and call it measurement.
+    </p>
+
+    <p>
+      A dashboard full of signals would look almost nothing like what most teams ship.
+      It would have fewer panels, each with explicit thresholds. It would show context —
+      the same number in relation to a target, a prior period, an external benchmark.
+      It would be calibrated to a specific decision cadence: what choices do we make
+      daily, weekly, quarterly, and what data informs each? It would have almost no
+      activity metrics and no vanity metrics. It would probably fit on half a screen.
+    </p>
+
+    <p>
+      The reason most dashboards are not built this way is that building it this way
+      requires answering hard questions before you open a single chart tool. Most
+      organisations are not ready for that conversation. So they skip it, and build
+      something that looks like measurement without performing any of its function.
+    </p>
+
+  </div>
+</Base>

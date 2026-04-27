@@ -1,0 +1,78 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import PullQuote from '../../components/PullQuote.astro';
+import Annotation from '../../components/Annotation.astro';
+---
+<Base title="Who Is This For" section={4}>
+  <SectionHeader n={4} title="Who Is This For" meta="~400w" />
+
+  <div class="prose">
+
+    <p>
+      The most common dashboard failure is not a bad metric or a misleading chart.
+      It is a dashboard specced by someone with authority and used by someone with context
+      who are rarely the same person. Call this the audience mismatch problem, and
+      understand that it is endemic — not exceptional.
+    </p>
+
+    <p>
+      The VP of Marketing commissions a campaign performance dashboard. She wants
+      high-level health metrics: reach, conversion, cost per acquisition, trend lines.
+      She will glance at it in the fifteen minutes before a review meeting. What she
+      gets is a dashboard used almost exclusively by the two analysts on her team,
+      who needed something different entirely — breakdowns by channel, by creative,
+      by cohort, exportable to CSV so they can run their own models on top of it.
+      The dashboard serves neither of them well. It is too operational for the VP
+      and too shallow for the analysts. Nobody asked who the actual user was.
+    </p>
+
+    <PullQuote>
+      <p>The dashboard designed for the CEO that only the analyst reads.
+      Audience mismatch is endemic — dashboards get specced by someone with authority
+      and used by someone with context. They're rarely the same person.</p>
+    </PullQuote>
+
+    <p>
+      The question "who is this for?" sounds obvious. It is not asked. The reason it
+      is not asked is that dashboards get commissioned top-down and built bottom-up,
+      and the people in the middle — the ones doing the building — assume the commissioning
+      person is the user. Sometimes they are. More often, the executive who asked for
+      the dashboard will look at it twice, send a screenshot to someone, and then forget
+      it exists. The person who uses it daily is three levels down, doing something
+      the executive never imagined.
+    </p>
+
+    <p>
+      There is no single fix, but there is a useful discipline: before opening any
+      chart tool, write the name of the person who will look at this data most often.
+      Not the person who asked for it — the person who will actually use it.
+      Then write down the question they are trying to answer when they open it.
+      If you cannot do this, you are not ready to build yet. Go talk to that person.
+    </p>
+
+    <Annotation label="Corollary">
+      If the dashboard genuinely serves multiple audiences — and sometimes it does —
+      it should be multiple dashboards. A shared screen with opposing information needs
+      is not a compromise. It is a failure that satisfies nobody.
+    </Annotation>
+
+    <p>
+      The deeper issue is that dashboard design inherits the power structure of the
+      organisations that commission it. Data gets surfaced upward, toward the people
+      who control budget and headcount. The people closest to the work — the ones who
+      most need good data tooling to do their jobs — often get the least considered
+      interfaces. This is not malice. It is just how organisational gravity works.
+      The person who makes the request has the most pull.
+    </p>
+
+    <p>
+      Good dashboard design reverses this, at least partially. It starts with the person
+      doing the work, builds for their actual question, and then asks what subset of
+      that information needs to be surfaced to higher levels — and in what simplified
+      form. The executive view is a derived product of the operational view, not the
+      other way around.
+    </p>
+
+  </div>
+</Base>

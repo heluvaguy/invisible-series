@@ -1,0 +1,79 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import PullQuote from '../../components/PullQuote.astro';
+import Annotation from '../../components/Annotation.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+<Base title="The Empty State Problem" section={5}>
+  <SectionHeader n={5} title="The Empty State Problem" meta="~400w" />
+
+  <div class="prose">
+
+    <p>
+      What does a dashboard look like when everything is fine?
+    </p>
+
+    <p>
+      Take a moment with that question, because most dashboards have no answer to it.
+      They look exactly the same whether everything is fine or something is catastrophically
+      wrong. The numbers update. The charts repaint. The tiles sit in their grid, unchanged
+      in character regardless of what the values actually say. There is no difference in
+      the dashboard's posture between "normal Tuesday" and "something just broke."
+    </p>
+
+    <PullQuote>
+      <p>A good dashboard should be boring when things are normal and loud when
+      they aren't. Almost none are designed this way.</p>
+    </PullQuote>
+
+    <p>
+      This is a catastrophic design failure, and it is almost universal. The entire premise
+      of monitoring is that the instrument should demand attention when attention is warranted
+      and stay out of the way when it is not. A dashboard that looks the same in all states
+      is not a monitoring tool. It is a static display. It requires the viewer to bring their
+      own calibration — to already know what normal looks like, to already know which numbers
+      matter and in what direction, to already know what threshold constitutes a problem.
+      It outsources all the intelligence to the human and provides none of its own.
+    </p>
+
+    <p>
+      The empty state problem is really the default state problem. Most dashboards have
+      only one visual state: numbers present. They have not been designed for the states
+      that matter most: everything-nominal, one-thing-off, something-urgent, unknown-data.
+      These states call for radically different visual treatments. A dashboard where all
+      thresholds are green should feel calm. A dashboard where one metric has crossed
+      a threshold should feel slightly wrong — a different weight or temperature to it.
+      A dashboard with a critical alert should demand to be looked at.
+    </p>
+
+    <Annotation label="Design principle">
+      Design for the boring state first. The dashboard you see on ninety-eight percent
+      of normal days should be visually quiet — it should not make you work to confirm
+      that nothing needs your attention. The cost of vigilance should be nearly zero
+      when nothing is wrong.
+    </Annotation>
+
+    <p>
+      This requires threshold design, which requires the work from <a href={`${base}section/2`}>§2</a> — actually defining
+      what normal looks like, what out-of-range means, and what the response is. You cannot
+      build a dashboard that knows when to be quiet without first deciding what loud means.
+      Most organisations have not done this work, so they build dashboards that are always
+      medium-loud — always showing the same level of information regardless of urgency —
+      which produces a kind of ambient numbness. Everything looks like it might matter.
+      So nothing does.
+    </p>
+
+    <p>
+      The fix is conceptually simple and operationally hard. For each metric: define normal.
+      Define the threshold at which someone should pay attention. Define the threshold at
+      which someone should act. Design the dashboard to be visually inert when all metrics
+      are in the normal band, and to escalate — visually, in weight, in contrast, in
+      prominence — when they leave it. The ideal end state is a dashboard that a reasonable
+      person can dismiss in three seconds when everything is fine, and cannot ignore when
+      something is not.
+    </p>
+
+  </div>
+</Base>
