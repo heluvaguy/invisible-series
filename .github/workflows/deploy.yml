@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: invisible-interface/package-lock.json
+          cache-dependency-path: "**/package-lock.json"
 
       - name: Install — Book I
         working-directory: invisible-interface
