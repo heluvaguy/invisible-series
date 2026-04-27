@@ -21,8 +21,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -49,13 +47,17 @@ jobs:
 
       - name: Assemble dist
         run: |
+          # Series landing at heluvaguy.github.io/invisible-series/
           mkdir -p dist
-          # Series landing page
           cp index.html dist/index.html
-          # Book I output lands at invisible-series/invisible-interface/
-          cp -r invisible-interface/dist/. dist/
-          # Book II output lands at invisible-series/invisible-dashboard/
-          cp -r "invisible-series/Invisible Dashboard/dist/." dist/
+
+          # Book I at heluvaguy.github.io/invisible-series/invisible-interface/
+          mkdir -p dist/invisible-interface
+          cp -r invisible-interface/dist/. dist/invisible-interface/
+
+          # Book II at heluvaguy.github.io/invisible-series/invisible-dashboard/
+          mkdir -p dist/invisible-dashboard
+          cp -r "invisible-series/Invisible Dashboard/dist/." dist/invisible-dashboard/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
